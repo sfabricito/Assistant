@@ -3,11 +3,11 @@ The foundation for this measurement lies in the dot product. But the issue with 
 
 Another solution is to use Cosine Similarity, a normalized form of the dot product.
 ### Cosine Similarity formula
-```
+
 $$
 Sc (U, V) = cos(θ) = \frac{u \cdot v}{||u|| \cdot ||v||}
 $$
-```
+
 ### Cosine Interpretation
 Cosine similarity disregards the magnitude of both vectors. forcing the calculation between -1 and 1.
 - A value of 1 means the angle between the two vectors is 0 degrees. In other words, the two vectors are similar because they point in the exact same direction. 
