@@ -1,3 +1,4 @@
 .ENV
 env
 project/data
+project/__pycache__
