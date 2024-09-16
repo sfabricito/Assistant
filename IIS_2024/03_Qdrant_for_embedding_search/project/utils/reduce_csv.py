@@ -1,6 +1,6 @@
 import csv
 
-def save_rows(input_file, output_file, num_rows):
+def reduce_csv(input_file, output_file, num_rows):
     with open(input_file, mode='r', newline='') as infile:
         reader = csv.reader(infile)
         
