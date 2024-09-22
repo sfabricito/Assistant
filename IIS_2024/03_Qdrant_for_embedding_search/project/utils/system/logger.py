@@ -1,18 +1,24 @@
 import sys
+import uuid
 import logging
+import os
 
 def logger():
-    logger = logging.getLogger(__name__)
+    log_dir = "logs"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+
+    logger = logging.getLogger(str(uuid.uuid4()))
     logger.setLevel(logging.DEBUG)
     
-    formatter = logging.Formatter('{time:%(asctime)s, level:%(levelname)s, module:%(name)s, message:%(message)s}')
+    formatter = logging.Formatter('{time:%(asctime)s, level:%(levelname)s, message:"%(message)s"}')
     
-    file_handler = logging.FileHandler("logs/app.log")
+    file_handler = logging.FileHandler(os.path.join(log_dir, "app.log"))
     file_handler.setLevel(logging.INFO) 
     file_handler.addFilter(lambda record: record.levelno < logging.ERROR)
     file_handler.setFormatter(formatter)
     
-    error_file_handler = logging.FileHandler("logs/error.log")
+    error_file_handler = logging.FileHandler(os.path.join(log_dir, "error.log"))
     error_file_handler.setLevel(logging.ERROR)
     error_file_handler.setFormatter(formatter)
     

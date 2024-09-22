@@ -1,11 +1,21 @@
+import os
 from tqdm import tqdm
+from dotenv import load_dotenv
+from .system.logger import logger
 from qdrant_client.models import PointStruct
 
-def load_data(qdrant, article_df):
+load_dotenv()
+log = logger()
+
+COLLECTION_NAME = os.getenv('COLLECTION_NAME')
+
+def upload_data(qdrant, article_df):
+    log.info(f'Upserting {len(article_df)} articles')
     for k, v in tqdm(article_df.iterrows(), desc="Upserting articles", total=len(article_df)):
         try:
+            #log.info(f'Upserting article number {len(article_df.iterrows())}')
             qdrant.upsert(
-                collection_name='Articles',
+                collection_name=COLLECTION_NAME,
                 points=[
                     PointStruct(
                         id=k,
@@ -19,5 +29,4 @@ def load_data(qdrant, article_df):
                 ]
             )
         except Exception as e:
-            print(f"Failed to upsert row {k}: {v}")
-            print(f"Exception: {e}")
+            log.error(f"Failed to upsert row {k}: {v}. Exception: {e}")

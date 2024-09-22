@@ -1,19 +1,25 @@
+import os
+import time
 import qdrant_client 
-from utils.read_data import read_data
-from utils.load_data import load_data
+from dotenv import load_dotenv
+from utils.system.logger import logger
+from utils.manage_data import manage_data
 from utils.download_data import download_data
 from utils.create_collection import create_collection
-from utils.reduce_csv import reduce_csv
+
+load_dotenv()
+log = logger()
+
+QDRANT_HOST = os.getenv('QDRANT_HOST')
+QDRANT_PORT = os.getenv('QDRANT_PORT')
 
 if __name__=="__main__":
-    print('Downloading')
-    download_data('https://cdn.openai.com/API/examples/data/vector_database_wikipedia_articles_embedded.zip')
-    print('Reading')
-    reduce_csv("./data/vector_database_wikipedia_articles_embedded.csv", "./data/small_vector_database_wikipedia_articles_embedded.csv", 1500)
-    article_df = read_data()
-    print('Setting up Qdrant')
-    qdrant = qdrant_client.QdrantClient(host="localhost", port=6333)
-    print('Creating Qdrant collection')
-    create_collection(qdrant, len(article_df['content_vector'][0]))
-    print('loading data')
-    load_data(qdrant, article_df)
+    start_time = time.perf_counter()
+    # download_data()
+    
+    log.info('Configuring Qdrant Client')
+    qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+    create_collection(qdrant)
+
+    manage_data(qdrant)
+    log.info(f'Program executed in {time.perf_counter() - start_time} seconds')

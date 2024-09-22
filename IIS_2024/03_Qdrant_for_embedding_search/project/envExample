@@ -1,0 +1,16 @@
+# Data
+FILE_URL = 'https://cdn.openai.com/API/examples/data/vector_database_wikipedia_articles_embedded.zip'
+FILE_NAME = 'vector_database_wikipedia_articles_embedded.csv'
+ZIP_NAME = 'vector_database_wikipedia_articles_embedded.zip'
+
+# Qdrant
+QDRANT_HOST = 'localhost'
+QDRANT_PORT = 6333
+
+COLLECTION_NAME = 'Articles'
+VECTOR_SIZE = 1536
+
+# Data Managment
+ROWS_CHUNK = 250
+ROWS_TO_ITERATE = 1500
+SLEEP_TIME = 1
