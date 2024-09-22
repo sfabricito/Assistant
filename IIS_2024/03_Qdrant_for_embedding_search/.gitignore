@@ -1,6 +1,6 @@
 .ENV
 env
 project/data
-project/__pycache__
+project/utils/__pycache__
 project/logs
 project/.env

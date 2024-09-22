@@ -23,3 +23,8 @@ $ bash run.bash
 ```
 
 This script is going to install all the system requirements and Python libraries, creation of a virtual environment and execution of the database.
+
+
+```ssh
+$ python-dotenv
+```
