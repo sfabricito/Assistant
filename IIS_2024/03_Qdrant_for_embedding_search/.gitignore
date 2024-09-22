@@ -2,3 +2,5 @@
 env
 project/data
 project/__pycache__
+project/logs
+project/.env
