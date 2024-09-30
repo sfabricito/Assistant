@@ -1,0 +1,5 @@
+install tqdm
+install pandas
+install pyarrow
+install requests
+install qdrant-client
