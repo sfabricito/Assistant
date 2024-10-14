@@ -15,7 +15,7 @@ def create_collection(qdrant):
         qdrant.recreate_collection(
             collection_name = COLLECTION_NAME,
             vectors_config={
-                'title': rest.VectorParams(
+                'date': rest.VectorParams(
                     distance=rest.Distance.COSINE,
                     size = VECTOR_SIZE,
                     quantization_config=rest.ScalarQuantization(
@@ -26,7 +26,117 @@ def create_collection(qdrant):
                         ),
                     ),
                 ),
-                'content': rest.VectorParams(
+                'location': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'attack_type': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'target_type': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'corporation': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'target': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'orchestrating_group': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'weapon': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'notes': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'scite1': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'scite2': rest.VectorParams(
+                    distance=rest.Distance.COSINE,
+                    size = VECTOR_SIZE,
+                    quantization_config=rest.ScalarQuantization(
+                        scalar=rest.ScalarQuantizationConfig(
+                            type=rest.ScalarType.INT8,
+                            quantile=0.99,
+                            always_ram=True,
+                        ),
+                    ),
+                ),
+                'scite3': rest.VectorParams(
                     distance=rest.Distance.COSINE,
                     size = VECTOR_SIZE,
                     quantization_config=rest.ScalarQuantization(
