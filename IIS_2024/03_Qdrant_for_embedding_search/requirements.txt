@@ -1,5 +1,6 @@
-install tqdm
-install pandas
-install pyarrow
-install requests
-install qdrant-client
+tqdm
+pandas
+pyarrow
+requests
+qdrant-client
+sentence_transformers
