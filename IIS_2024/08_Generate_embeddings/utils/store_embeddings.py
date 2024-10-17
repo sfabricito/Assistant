@@ -35,5 +35,5 @@ def store_embeddings(file):
                 formatter={'float_kind': lambda x: f"{x:.18f}"}
             )
 
-    df.to_parquet('./data/globalTerrorismWithEmbeddings.parquet')
+    df.to_parquet('./output/globalTerrorismWithEmbeddings.parquet')
     log.info('File with embeddings saved')
