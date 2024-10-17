@@ -6,11 +6,7 @@ sudo apt install python3-venv
 python3 -m venv env
 source env/bin/activate
 
-pip install qdrant-client
-pip install openai
-pip install tqdm
-pip install pandas
-pip install requests
+RUN pip install --no-cache-dir -r requirements.txt
 
 cd ./docker/
 docker compose up -d  # Run in detached mode

@@ -1,0 +1,6 @@
+tqdm
+pandas
+pyarrow
+requests
+qdrant-client
+sentence_transformers
