@@ -1,0 +1,6 @@
+env
+data
+utils/__pycache__/
+utils/csv/__pycache__/
+logs
+.env
