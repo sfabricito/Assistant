@@ -22,7 +22,9 @@ def logger():
     error_file_handler.setLevel(logging.ERROR)
     error_file_handler.setFormatter(formatter)
     
+    # Stream handler only logs WARNING and above (no INFO messages in console)
     stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler.setLevel(logging.WARNING)  # Change level to WARNING
     stream_handler.setFormatter(formatter)
     
     logger.addHandler(file_handler)

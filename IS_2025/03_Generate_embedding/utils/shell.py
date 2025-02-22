@@ -1,5 +1,6 @@
 import curses
 import os
+import re
 
 from utils.logger import logger
 
@@ -36,16 +37,14 @@ def csv_shell(stdscr):
         elif key == ord("\n"):
             selected_file = options[selected]
             if selected_file == "Back":
-                return None, None  # Returning None if the user selects 'Back'
+                return None, None
 
-            # Ask for the number of rows
             curses.curs_set(1)
             stdscr.clear()
             stdscr.addstr(0, 0, f"Selected: {selected_file}")
             stdscr.addstr(1, 0, "Enter the number of rows to affect: ")
 
-            # Move the cursor right after the message, without a new line
-            stdscr.move(1, len("Enter the number of rows to affect: "))  # Place cursor after the text
+            stdscr.move(1, len("Enter the number of rows to affect: "))
 
             curses.echo()
             stdscr.refresh()
@@ -53,7 +52,7 @@ def csv_shell(stdscr):
             curses.noecho()
 
             if not rows_input.isdigit() or int(rows_input) <= 0:
-                return selected_file, 0  # Invalid input, return 0 as default
+                return selected_file, 0
 
             log.info(f"Selected file: {selected_file}, rows: {rows_input}")
 
@@ -61,7 +60,21 @@ def csv_shell(stdscr):
 
 def model_shell(stdscr):
     curses.curs_set(0)
-    options = ["gte-large", "all-mpnet-base-v2", "all-MiniLM-L12-v2", "Back"]
+    options = [
+        "gte-small",
+        "gte-base", 
+        "gte-large",
+
+        "e5-base-v2",
+        "e5-small-v2",
+        "e5-large-v2",
+        
+        "all-mpnet-base-v2", 
+        "all-MiniLM-L12-v2", 
+        "all-miniLM-L6-v2",
+        
+        "Back"
+        ]
     selected = 0
 
     while True:
@@ -81,15 +94,25 @@ def model_shell(stdscr):
         elif key == curses.KEY_DOWN and selected < len(options) - 1:
             selected += 1
         elif key == ord("\n"):
+            if options[selected] == "Back":
+                return None, None
             selected_parquet = parquet_shell(stdscr)
+            if selected_parquet is None:
+                continue
             return options[selected], selected_parquet
 
 def parquet_shell(stdscr):
     directory = "data/clean"
     curses.curs_set(0)
     
+    def natural_sort_key(filename):
+        return [int(text) if text.isdigit() else text.lower() for text in re.split(r'(\d+)', filename)]
+
     try:
-        files = [f for f in os.listdir(directory) if f.endswith(".parquet")]
+        files = sorted(
+            [f for f in os.listdir(directory) if f.endswith(".parquet")],
+            key=natural_sort_key
+        )
     except FileNotFoundError:
         files = []
 

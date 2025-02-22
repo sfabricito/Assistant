@@ -4,12 +4,13 @@ from utils.shell import model_shell, csv_shell
 from utils.csv.clean_csv import clean_csv
 
 from utils.logger import logger
+from utils.embedding.app import generate_embeddings
 
 log = logger()
 
 def interactive_shell(stdscr):
     curses.curs_set(0)
-    options = ["Clean CSV", "Generate Embeddings", "Capture", "Help", "Exit"]
+    options = ["Clean CSV", "Generate Embeddings", "Qdrant", "Exit"]
     selected = 0
 
     while True:
@@ -43,7 +44,10 @@ def interactive_shell(stdscr):
                 curses.doupdate()
             elif options[selected] == "Generate Embeddings":
                 selected_model, selected_parquet = model_shell(stdscr)
-                log.info(f'Selected model: {selected_model} {selected_parquet}')
+                if selected_model and selected_parquet:
+                    log.info(f'Selected model: {selected_model} {selected_parquet}')
+                    generate_embeddings(selected_model, selected_parquet, stdscr)
+                    log.info('after generate embeddings')
                 stdscr.clear()
                 stdscr.refresh()
 
