@@ -1,38 +1,25 @@
-import pyarrow.parquet as pq
-import numpy as np
-import curses
 import os
-
+import curses
+import numpy as np
+import pyarrow.parquet as pq
 
 from utils.logger import logger
 from sentence_transformers import SentenceTransformer
+from utils.tools.models import loadModels
 
 
 log = logger()
 
 model = SentenceTransformer('all-mpnet-base-v2')
 
-models = {
-    'gte-small': 'thenlper/gte-small',
-    'gte-base': 'thenlper/gte-base',
-    'gte-large': 'thenlper/gte-large',
-
-
-    'e5-large-v2': 'intfloat/e5-large-v2',
-    'e5-base-v2': 'intfloat/e5-base-v2',
-    'e5-small-v2': 'intfloat/e5-small-v2',
-
-    'all-mpnet-base-v2': 'sentence-transformers/all-mpnet-base-v2',
-    'all-miniLM-L12-v2': 'sentence-transformers/all-MiniLM-L12-v2',
-    'all-miniLM-L6-v2': 'sentence-transformers/all-MiniLM-L6-v2'
-}
+models = loadModels()
 
 
 def generate_embeddings(model_name, file, stdscr=None):
     log.info('Generate embedding', model_name, file)
     if model_name in models:
         stdscr.addstr(1, 0, f"Generating Embeddings for {model_name}...")
-        model = SentenceTransformer(models[model_name])
+        model = SentenceTransformer(models[model_name]['id'])
         store_embeddings(model_name, file, stdscr)
 
 def store_embeddings(model_name, file, stdscr=None):
@@ -99,7 +86,7 @@ def generate_embedding(text):
         if isinstance(text, str) and text != '':
             embedding = model.encode(text).tolist()
         else:
-            embedding = []
+            embedding = model.encode('Null').tolist()
         return embedding
     except Exception as e:
         log.error(f'An error has occur while generating an embedding. {e}')

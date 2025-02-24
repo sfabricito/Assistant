@@ -4,3 +4,4 @@ utils/__pycache__/
 utils/csv/__pycache__/
 logs
 .env
+__pycache__/

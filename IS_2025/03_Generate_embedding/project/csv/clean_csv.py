@@ -4,7 +4,7 @@ import csv
 import time
 import random
 import curses
-from utils.csv.convert_csv_parquet import convert_csv_parquet
+from project.csv.convert_csv_parquet import convert_csv_parquet
 
 def open_csv(input_file, output_file, num_rows, stdscr=None):
     with open(input_file, mode='r', newline='', encoding='ISO-8859-1') as infile:

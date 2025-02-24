@@ -1,3 +1,4 @@
+
 import time
 import curses
 import subprocess
@@ -5,6 +6,8 @@ import threading
 
 from utils.logger import logger
 from utils.tools.isHostRunning import isHostRunning
+
+from menu.loadDataMenu import loadDataMenu
 
 log = logger()
 
@@ -26,7 +29,7 @@ def qdrantMenu(stdscr):
     qdrantRunning = [isHostRunning("127.0.0.1", 6333)]
 
     status_thread = threading.Thread(target=checkQdrantStatus, args=(stdscr, qdrantRunning))
-    status_thread.daemon = True  # Daemonize so it exits when the program exits
+    status_thread.daemon = True
     status_thread.start()
 
     selected = 0
@@ -41,8 +44,12 @@ def qdrantMenu(stdscr):
         stdscr.addstr(1, 0, f"Qdrant Status: {status_text}", status_color | curses.A_BOLD)
 
         for idx, option in enumerate(options):
-            highlight = curses.A_REVERSE if idx == selected else 0
-            stdscr.addstr(idx + 3, 2, f"> {option}" if idx == selected else f"  {option}", highlight)
+            highlight = curses.A_BOLD if idx == selected else 0
+
+            if option == 'Back':
+                stdscr.addstr(idx + 3, 2, f"> {option}" if idx == selected else f"  {option}", curses.color_pair(3))
+            else:
+                stdscr.addstr(idx + 3, 2, f"> {option}" if idx == selected else f"  {option}")
 
         key = stdscr.getch()
 
@@ -51,10 +58,10 @@ def qdrantMenu(stdscr):
         elif key == curses.KEY_DOWN and selected < len(options) - 1:
             selected += 1
         elif key == ord("\n"):
-            if not handleOption(options[selected]):
+            if not handleOption(options[selected], stdscr):
                 break
 
-def handleOption(option: str) -> bool:
+def handleOption(option: str, stdscr) -> bool:
     if option == "Start":
         log.info("Starting Qdrant")
         subprocess.run(["bash", "utils/scripts/startQdrant.sh"])
@@ -67,6 +74,7 @@ def handleOption(option: str) -> bool:
         subprocess.run(["bash", "utils/scripts/restartQdrant.sh"])
     elif option == "Load Data":
         log.info("Loading Data into Qdrant")
+        loadDataMenu(stdscr)
     elif option == "Back":
         return False
     return True

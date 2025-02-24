@@ -1,10 +1,13 @@
+import os
 import curses
 
+from menu.qdrant import qdrantMenu
+
 from utils.shell import model_shell, csv_shell
-from utils.csv.clean_csv import clean_csv
+from project.csv.clean_csv import clean_csv
 
 from utils.logger import logger
-from utils.embedding.app import generate_embeddings
+from project.embedding.app import generate_embeddings
 
 log = logger()
 
@@ -30,25 +33,31 @@ def interactive_shell(stdscr):
         elif key == curses.KEY_DOWN and selected < len(options) - 1:
             selected += 1
         elif key == ord("\n"):
-            stdscr.refresh()
-            curses.napms(200)
-
-            if options[selected] == "Exit":
+            if not handleOption(options[selected], stdscr):
                 break
-            elif options[selected] == "Clean CSV":
-                selected_csv, num_rows = csv_shell(stdscr)
-                if selected_csv:
-                    clean_csv(selected_csv, num_rows, stdscr)
-                stdscr.clear()
-                stdscr.refresh()
-                curses.doupdate()
-            elif options[selected] == "Generate Embeddings":
-                selected_model, selected_parquet = model_shell(stdscr)
-                if selected_model and selected_parquet:
-                    log.info(f'Selected model: {selected_model} {selected_parquet}')
-                    generate_embeddings(selected_model, selected_parquet, stdscr)
-                    log.info('after generate embeddings')
-                stdscr.clear()
-                stdscr.refresh()
+            stdscr.clear()
+            stdscr.refresh()
 
-curses.wrapper(interactive_shell)
+
+def handleOption(option: str, stdscr) -> bool:
+    if option == "Clean CSV":
+        log.info("Selected menu: Clean CSV")
+        selected_csv, num_rows = csv_shell(stdscr)
+        if selected_csv:
+            clean_csv(selected_csv, num_rows, stdscr)
+
+    elif option == "Generate Embeddings":
+        log.info("Selected menu: Generate Embeddings")
+        selected_model, selected_parquet = model_shell(stdscr)
+        if selected_model and selected_parquet:
+            generate_embeddings(selected_model, selected_parquet, stdscr)
+    elif option == "Qdrant":
+        log.info("Loading Data into Qdrant")
+        qdrantMenu(stdscr)
+    elif option == "Exit":
+        return False
+    return True
+
+
+if __name__=="__main__":
+    curses.wrapper(interactive_shell)
