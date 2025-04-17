@@ -1,18 +1,15 @@
 import curses
 
 from utils.tools.findFiles import findFiles
-from project.qdrant.app import main
+from menu.loadDataMenu import loadDataMenu
 
-def loadDataMenu(stdscr, distance) -> bool:
-    directory = 'data/embedding'
-    files = findFiles(directory, 'parquet')
-
-    options = files + ["Back"]
+def distanceMenu(stdscr) -> bool:
+    options = ['Cosine Similiarity', 'Euclidean Distance', 'Dot Product', 'Back']
     selected = 0
 
     while True:
         stdscr.clear()
-        stdscr.addstr(0, 0, f"Parquet Files in {directory} (Use arrow keys to navigate, ENTER to select)")
+        stdscr.addstr(0, 0, f"Type of distance (Use arrow keys to navigate, ENTER to select)")
 
         for idx, option in enumerate(options):
             if idx == selected:
@@ -30,4 +27,4 @@ def loadDataMenu(stdscr, distance) -> bool:
             if options[selected] == "Back":
                 return False
             else:
-                main(distance, options[selected])
+                loadDataMenu(stdscr, options[selected])

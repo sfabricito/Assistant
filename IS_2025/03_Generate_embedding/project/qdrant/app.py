@@ -6,6 +6,7 @@ from utils.logger import logger
 from project.qdrant.manageData import manageData
 from project.qdrant.createCollection import createCollection
 from utils.tools.models import searchModel
+from utils.tools.updateEnv import updateEnv
 
 load_dotenv()
 log = logger()
@@ -13,15 +14,16 @@ log = logger()
 QDRANT_HOST = os.getenv('QDRANT_HOST')
 QDRANT_PORT = os.getenv('QDRANT_PORT')
 
-def main(filename):
+def main(distance, filename):
     log.info(f'Executing Program')
     start_time = time.perf_counter()
 
     model = searchModel(filename)
+    updateEnv('EMBEDDING_MODEL', model['id'])
 
     log.info(f'Configuring Qdrant Client. Model: {model}')
     qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
-    createCollection(qdrant, model['vector_size'])
+    createCollection(qdrant, distance,  model['vector_size'])
 
     manageData(qdrant, filename)
     # log.info(f'Program executed in {time.perf_counter() - start_time} seconds')

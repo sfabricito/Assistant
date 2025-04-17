@@ -20,17 +20,7 @@ def uploadData(qdrant, article_df):
             point = PointStruct(
                 id=k,
                 vector={
-                    'location': v['location_vector'],
-                    'attack_type': v['attack_type_vector'],
-                    'target_type': v['target_type_vector'],
-                    'corporation': v['corporation_vector'],
-                    'target': v['target_vector'],
-                    'orchestrating_group': v['orchestrating_group_vector'],
-                    'weapon': v['weapon_vector'],
-                    'notes': v['notes_vector'], 
-                    'scite1': v['scite1_vector'], 
-                    'scite2': v['scite2_vector'], 
-                    'scite3': v['scite3_vector']
+                    'text': v['text_vector']
                 },
                 payload={
                     'id': v['id'],
@@ -38,15 +28,14 @@ def uploadData(qdrant, article_df):
                     'location': v['location'],
                     'attack_type': v['attack_type'],
                     'target_type': v['target_type'],
-                    'corporation': v['corporation'],
                     'target': v['target'],
                     'orchestrating_group': v['orchestrating_group'],
+                    'motive': v['motive'],
                     'weapon': v['weapon'],
-                    'deceased': v['deceased'],
-                    'notes': v['notes'], 
-                    'scite1': v['scite1'], 
-                    'scite2': v['scite2'], 
-                    'scite3': v['scite3']
+                    'deceased': v['deceased'], 
+                    'comments': v['comments'], 
+                    'syntheticData': v.get('syntheticData', 'false'), 
+                    'text': v['text']
                 }
             )
             batch.append(point)

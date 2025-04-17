@@ -1,4 +1,5 @@
 import os
+import time
 import curses
 import numpy as np
 import pyarrow.parquet as pq
@@ -10,32 +11,32 @@ from utils.tools.models import loadModels
 
 log = logger()
 
-model = SentenceTransformer('all-mpnet-base-v2')
+model = None
 
 models = loadModels()
 
 
 def generate_embeddings(model_name, file, stdscr=None):
     log.info('Generate embedding', model_name, file)
+    global model
+
     if model_name in models:
         stdscr.addstr(1, 0, f"Generating Embeddings for {model_name}...")
         model = SentenceTransformer(models[model_name]['id'])
         store_embeddings(model_name, file, stdscr)
 
 def store_embeddings(model_name, file, stdscr=None):
+    start_time = time.time()
     df = read_file(f'./data/clean/{file}')
     log.info(f'File read: {file}')
     
     vector_columns = [
-        'date', 'location', 'attack_type', 'target_type', 'corporation', 
-        'target', 'orchestrating_group', 'weapon', 'notes', 
-        'scite1', 'scite2', 'scite3'
+        'text'
     ]
     
     for col in vector_columns:
         df[f'{col}_vector'] = None
     
-    first_vector_logged = False
 
     for index, row in df.iterrows():
         total_rows = len(df)
@@ -56,19 +57,19 @@ def store_embeddings(model_name, file, stdscr=None):
                 formatter={'float_kind': lambda x: f"{x:.18f}"}
             )
 
-            if not first_vector_logged:
-                log.info(f'First vector ({col}): {embedding}')
-                first_vector_logged = True
-
     file_name, file_ext = os.path.splitext(file)
     new_file_name = f'./data/embedding/{file_name}_{model_name}{file_ext}'
+
 
     df.to_parquet(new_file_name)
     
     file_size = os.path.getsize(new_file_name) / (1024 * 1024)
     log.info(f'File with embeddings saved: {new_file_name}')
     log.info(f'File size: {file_size:.2f} MB')
-    log.info(f'Total embeddings: {len(df)}')
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    log.info(f'Total processing time: {elapsed_time:.2f} seconds')
+
     
     if stdscr:
         stdscr.addstr(0, 0, "Process Complete!")

@@ -9,10 +9,7 @@ load_dotenv()
 log = logger()
 
 VECTOR_COLUMNS = [
-    'date_vector', 'location_vector', 'attack_type_vector',
-    'target_type_vector', 'corporation_vector', 'target_vector',
-    'orchestrating_group_vector', 'weapon_vector', 'notes_vector',
-    'scite1_vector', 'scite2_vector', 'scite3_vector'
+    'text_vector'
 ]
 
 def apply_literal_eval(df, columns):

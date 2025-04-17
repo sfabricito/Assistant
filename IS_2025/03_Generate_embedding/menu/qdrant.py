@@ -7,7 +7,7 @@ import threading
 from utils.logger import logger
 from utils.tools.isHostRunning import isHostRunning
 
-from menu.loadDataMenu import loadDataMenu
+from menu.distanceMenu import distanceMenu
 
 log = logger()
 
@@ -38,7 +38,7 @@ def qdrantMenu(stdscr):
         status_text = "Running" if qdrantRunning[0] else "Not Running"
         status_color = curses.color_pair(2) if qdrantRunning[0] else curses.color_pair(3)
 
-        options = ["Stop", "Restart", "Load Data", "Back"] if qdrantRunning[0] else ["Start", "Back"]
+        options = ["Stop", "Restart", "Load Data", "Search", "Back"] if qdrantRunning[0] else ["Start", "Back"]
         stdscr.clear()
         stdscr.addstr(0, 0, "Use arrow keys to navigate. Press ENTER to select.", curses.color_pair(1))
         stdscr.addstr(1, 0, f"Qdrant Status: {status_text}", status_color | curses.A_BOLD)
@@ -74,7 +74,11 @@ def handleOption(option: str, stdscr) -> bool:
         subprocess.run(["bash", "utils/scripts/restartQdrant.sh"])
     elif option == "Load Data":
         log.info("Loading Data into Qdrant")
-        loadDataMenu(stdscr)
+        distanceMenu(stdscr)
+    elif option == "Search":
+        log.info("Searching in Qdrant")
+        from menu.searchMenu import searchMenu
+        searchMenu(stdscr)
     elif option == "Back":
         return False
     return True

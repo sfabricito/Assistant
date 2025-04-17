@@ -61,17 +61,14 @@ def csv_shell(stdscr):
 def model_shell(stdscr):
     curses.curs_set(0)
     options = [
-        "gte-small",
         "gte-base", 
         "gte-large",
 
         "e5-base-v2",
-        "e5-small-v2",
         "e5-large-v2",
         
         "all-mpnet-base-v2", 
-        "all-MiniLM-L12-v2", 
-        "all-miniLM-L6-v2",
+
         
         "Back"
         ]
