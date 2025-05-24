@@ -12,6 +12,7 @@ distances = {
     'Cosine Similiarity': rest.Distance.COSINE,
     'Euclidean Distance': rest.Distance.EUCLID,
     'Dot Product': rest.Distance.DOT,
+    'Manhattan Distance': rest.Distance.MANHATTAN,
 }
 
 def createCollection(qdrant, distance, vector_size):

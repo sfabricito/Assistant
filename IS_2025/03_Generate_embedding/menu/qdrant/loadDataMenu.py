@@ -1,15 +1,23 @@
+import os
 import curses
 
+from dotenv import load_dotenv
+from project.qdrant.app import main
 from utils.tools.findFiles import findFiles
-from menu.loadDataMenu import loadDataMenu
 
-def distanceMenu(stdscr) -> bool:
-    options = ['Cosine Similiarity', 'Euclidean Distance', 'Dot Product', 'Back']
+load_dotenv()
+
+CLEAN_DATA_DIRECTORY = os.getenv('CLEAN_DATA_DIRECTORY')
+
+def loadDataMenu(stdscr, distance) -> bool:
+    files = findFiles(CLEAN_DATA_DIRECTORY, 'parquet')
+
+    options = files + ["Back"]
     selected = 0
 
     while True:
         stdscr.clear()
-        stdscr.addstr(0, 0, f"Type of distance (Use arrow keys to navigate, ENTER to select)")
+        stdscr.addstr(0, 0, f"Parquet Files in {CLEAN_DATA_DIRECTORY} (Use arrow keys to navigate, ENTER to select)")
 
         for idx, option in enumerate(options):
             if idx == selected:
@@ -27,4 +35,4 @@ def distanceMenu(stdscr) -> bool:
             if options[selected] == "Back":
                 return False
             else:
-                loadDataMenu(stdscr, options[selected])
+                main(distance, options[selected])

@@ -7,7 +7,10 @@ import threading
 from utils.logger import logger
 from utils.tools.isHostRunning import isHostRunning
 
-from menu.distanceMenu import distanceMenu
+from menu.qdrant.searchMenu import searchMenu
+from menu.qdrant.distanceMenu import distanceMenu
+from menu.qdrant.searchMenu import searchParamsMenu
+from menu.qdrant.searchMenu import processAllQueries
 
 log = logger()
 
@@ -38,7 +41,7 @@ def qdrantMenu(stdscr):
         status_text = "Running" if qdrantRunning[0] else "Not Running"
         status_color = curses.color_pair(2) if qdrantRunning[0] else curses.color_pair(3)
 
-        options = ["Stop", "Restart", "Load Data", "Search", "Back"] if qdrantRunning[0] else ["Start", "Back"]
+        options = ["Stop", "Restart", "Load Data", "Search", "Search with Params", "Search all queries", "Back"] if qdrantRunning[0] else ["Start", "Back"]
         stdscr.clear()
         stdscr.addstr(0, 0, "Use arrow keys to navigate. Press ENTER to select.", curses.color_pair(1))
         stdscr.addstr(1, 0, f"Qdrant Status: {status_text}", status_color | curses.A_BOLD)
@@ -77,8 +80,13 @@ def handleOption(option: str, stdscr) -> bool:
         distanceMenu(stdscr)
     elif option == "Search":
         log.info("Searching in Qdrant")
-        from menu.searchMenu import searchMenu
         searchMenu(stdscr)
+    elif option == "Search with Params":
+        log.info("Searching in Qdrant with Params")
+        searchParamsMenu(stdscr)
+    elif option == "Search all queries":
+        log.info("Searching all queries in Qdrant")
+        processAllQueries(stdscr)
     elif option == "Back":
         return False
     return True

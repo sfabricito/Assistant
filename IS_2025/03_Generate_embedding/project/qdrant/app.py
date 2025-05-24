@@ -20,6 +20,7 @@ def main(distance, filename):
 
     model = searchModel(filename)
     updateEnv('EMBEDDING_MODEL', model['id'])
+    updateEnv('DISTANCE', distance)
 
     log.info(f'Configuring Qdrant Client. Model: {model}')
     qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)

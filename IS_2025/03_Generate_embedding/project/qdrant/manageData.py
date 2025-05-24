@@ -44,8 +44,8 @@ def manageData(qdrant, filename, synthetic_filename='./data/syntheticData/data.j
 
         # Concatenate DataFrames
         combinedData = pd.concat([data, syntheticData], ignore_index=True)
-
-        # Upload to Qdrant
+        log.info('Data concatenation completed: ' + EMBEDDING_MODEL)
+        #Upload to Qdrant
         uploadData(qdrant, combinedData)
 
         log.info('Data processed and uploaded to Qdrant')

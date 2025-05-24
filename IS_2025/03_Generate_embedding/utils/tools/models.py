@@ -11,3 +11,7 @@ def searchModel(filename):
     if match:
         return models[match.group(2)]
     return None
+
+def getModelNames():
+    models = loadModels()
+    return [model['name'] for model in models.values()]

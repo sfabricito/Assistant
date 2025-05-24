@@ -1,10 +1,16 @@
 import os
-import tempfile
 import csv
 import time
 import random
 import curses
+import tempfile
+from dotenv import load_dotenv
 from project.csv.convert_csv_parquet import convert_csv_parquet
+
+load_dotenv()
+
+CSV_DIRECTORY = os.getenv('CSV_DIRECTORY')
+CLEAN_DATA_DIRECTORY = os.getenv('CLEAN_DATA_DIRECTORY')
 
 def open_csv(input_file, output_file, num_rows, stdscr=None):
     with open(input_file, mode='r', newline='', encoding='ISO-8859-1') as infile:
@@ -79,12 +85,11 @@ def clean_csv(input_file, rows=10, stdscr=None):
             stdscr.addstr(0, 0, f"Cleaning CSV: {input_file}")
             stdscr.refresh()
 
-        open_csv(f'data/csv/{input_file}', temp_file.name, rows, stdscr)
+        open_csv(f'{CSV_DIRECTORY}/{input_file}', temp_file.name, rows, stdscr)
 
-        output_dir = "./data/clean"
-        os.makedirs(output_dir, exist_ok=True)
+        os.makedirs(CLEAN_DATA_DIRECTORY, exist_ok=True)
 
-        output_file = f"{output_dir}/globalTerrorism_{rows}.parquet"
+        output_file = f"{CLEAN_DATA_DIRECTORY}/globalTerrorism_{rows}.parquet"
 
         if stdscr:
             stdscr.addstr(4, 0, "Converting to Parquet...")

@@ -20,16 +20,18 @@ def apply_literal_eval(df, columns):
 def readData(filename):
     try:
         log.info(f'Reading rows from file {filename}')
-        csv_file_path = f'./data/embedding/{filename}'
-        parquet_file = pq.ParquetFile(csv_file_path)
-        
-        table = parquet_file.read_row_groups([0])
+        parquet_file_path = f'./data/embedding/{filename}'
+        parquet_file = pq.ParquetFile(parquet_file_path)
+
+        table = parquet_file.read()
         article_df = table.to_pandas()
 
+        # NO NECESITAS apply_literal_eval si los vectores ya son listas
         article_df = apply_literal_eval(article_df, VECTOR_COLUMNS)
-        article_df['id'] = article_df['id'].astype(str)
 
+        article_df['id'] = article_df['id'].astype(str)
         return article_df
+
     except Exception as e:
         print(e)
         log.error(f'Exception while reading rows. {e}')
