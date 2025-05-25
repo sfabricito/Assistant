@@ -1,15 +1,17 @@
 import os
 import curses
 import json
+import qdrant_client 
+
 from typing import Optional
+from dotenv import load_dotenv
 from utils.logger import logger
 from utils.tools.results import append_to_csv
 from project.qdrant.query import query_qdrant
 from utils.tools.saveListTxt import saveListTxt
+from sentence_transformers import SentenceTransformer
 
-from dotenv import load_dotenv
 load_dotenv()
-
 log = logger()
 
 def askText(stdscr, text = "Enter the text to search (press ENTER twice to search)s:"):
@@ -99,9 +101,6 @@ def searchParamsMenu(stdscr):
     stdscr.getch()  # Wait for user input before returning
 
 def processAllQueries(stdscr):
-    import json
-    from typing import Optional
-
     json_path = "./data/queries/queries.json"
     csv_output_path = "./data/search/results.csv"
 
@@ -109,7 +108,15 @@ def processAllQueries(stdscr):
         queries = json.load(file)
 
     total_queries = len(queries)
-    log.info(f"Starting processing of {total_queries} queries...")
+    log.warning(f"Starting processing of {total_queries} queries...")
+
+
+    QDRANT_HOST = os.getenv('QDRANT_HOST')
+    QDRANT_PORT = os.getenv('QDRANT_PORT')
+    EMBEDDING_MODEL = os.getenv('EMBEDDING_MODEL')
+    qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+    model = SentenceTransformer(EMBEDDING_MODEL)
+    
 
     for idx, q in enumerate(queries, start=1):
         query_id = q["id"]
@@ -117,8 +124,8 @@ def processAllQueries(stdscr):
         tipo_query = q["query_type"]
         expected_attacks = set(q.get("attacks_related", []))
         filters: Optional[dict] = q.get("filters")  
-
-        log.info(f"Processing query {idx}/{total_queries} - ID: {query_id}, Type: {tipo_query}, Filters: {filters}")
+        
+        log.warning(f"Processing query {idx}/{total_queries} - ID: {query_id}, Type: {tipo_query}, Filters: {filters}")
 
         stdscr.clear()
         stdscr.addstr(0, 0, f"Processing queries... {idx}/{total_queries}")
@@ -130,15 +137,18 @@ def processAllQueries(stdscr):
         results = query_qdrant(
             query=query_text,
             top_k=5,
-            filters=filters if filters else None
+            filters=filters if filters else None,
+            qdrant=qdrant,
+            model=model,
         )
 
-        log.error(f"Query ID: {query_id}, Results: {results}")
+        log.warning(f"Query ID: {query_id}, Results: {results}")
 
         if not results:
             log.info(f"No results for query ID {query_id}, skipping.")
             continue
 
+        log.warning(f"Processing results for query ID {query_id}...")
         best_result = results[0]
         mejor_ataque_id = best_result.id
         mejor_puntaje = best_result.score
@@ -148,6 +158,8 @@ def processAllQueries(stdscr):
         retrieved_ids = [res.id for res in results]
         true_positives = len(set(retrieved_ids) & expected_attacks)
         precision = true_positives / 5
+
+        del results
 
 
         log.info(f"Best attack ID: {mejor_ataque_id} with score: {mejor_puntaje}")

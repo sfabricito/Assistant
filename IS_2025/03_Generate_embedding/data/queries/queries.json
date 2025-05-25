@@ -1,0 +1,169 @@
+[
+    {
+        "id": 1000000,
+        "query": "Find terrorist attacks involving an RPG strike on a humanitarian aid cargo plane carrying medical supplies.",
+        "query_type": "1",
+        "attacks_related": [50000, 50001, 50002, 50003, 50004],
+        "filters": {}
+    },
+        {
+        "id": 1000001,
+        "query": "Find details about the terrorist attack on the satellite components manufacturing factory in Ottawa where workers were killed by explosives",
+        "query_type": "1",
+        "attacks_related": [50005, 50006, 50007, 50008, 50009],
+        "filters": {}
+    },
+        {
+        "id": 1000002,
+        "query": "Armed attack on cruise ship in Lisbon where attackers used speedboats and assault rifles, injuring passengers",
+        "query_type": "1",
+        "attacks_related": [50010, 50011, 50012, 50013, 50014],
+        "filters": {}
+    },
+        {
+        "id": 1000003,
+        "query": "Armed assault on Aurum Prime gold refinery in Peru where attackers stole  gold bars and destroyed cyanidation equipment",
+        "query_type": "1",
+        "attacks_related": [50015, 50016, 50017, 50018, 50019],
+        "filters": {}
+    },
+        {
+        "id": 1000004,
+        "query": "Cargo truck bomb Aviation Toulouse. Anti-Militarization Alliance claimed responsibility, opposing military aircraft production. Four killed, factory damaged.",
+        "query_type": "1",
+        "attacks_related": [50020, 50021, 50022, 50023, 50024],
+        "filters": {}
+    },
+    {
+        "id": 1000005,
+        "query": "Find information about a terrorist bombing attack at an Asian port where underwater explosives were used against a GSC Logistics cargo ship.",
+        "query_type": "2",
+        "attacks_related": [50025, 50026, 50027, 50028, 50029],
+        "filters": {
+            "orchestrating_group": "Maritime Freedom Brigade"
+        }
+    },
+    {
+        "id": 1000006,
+        "query": "Find information about a terrorist attack targeting a Hydroelectric  in Brazil, where the Amazon Liberation Collective used dynamite explosives to damage turbine control rooms.",
+        "query_type": "2",
+        "attacks_related": [50030, 50031, 50032, 50033, 50034],
+        "filters": {
+            "date": "2019-08-17"
+        }
+    },
+    {
+        "id": 1000007,
+        "query": "Find information about a terrorist attack where a religious group carried out an arson attack against Melodica Sound Productions Studio",
+        "query_type": "2",
+        "attacks_related": [50035, 50036, 50037, 50038, 50039],
+        "filters": {
+            "orchestrating_group": "Pure Values Congregation"
+        }
+    },
+    {
+        "id": 1000008,
+        "query": "Terrorist attack targeting a convoy of trucks that were transporting CRISPR biological material belonging to a company of DNA modification",
+        "query_type": "2",
+        "attacks_related": [50040, 50041, 50042, 50043, 50044],
+        "filters": {
+            "location": "Central America, Costa Rica, San José, Desamparados"
+        }
+    },
+    {
+        "id": 1000009,
+        "query": "The target was the AirRepair facility located at a International Airport against the president board of directors due to his alleged involvement in illicit dealings with a mafia organization.",
+        "query_type": "2",
+        "attacks_related": [50045, 50046, 50047, 50048, 50049],
+        "filters": {
+            "attack_type": "Bombing/Explosion"
+        }
+    },
+    {
+        "id": 1000010,
+        "query": "Bombing attack on Tamandra engine factory in Bratislava where multiple explosives targeted V8 turbo production lines and chemical storage, motivated by environmental concerns about waste discharge into the Danube River.",
+        "query_type": "3",
+        "attacks_related": [50050, 50051, 50052, 50053, 50054],
+        "filters": {}
+    },
+    {
+        "id": 1000011,
+        "query": "I'm researching incidents where religious extremist groups targeted rock music events with non-conventional weapons. Specifically, I'm looking for a case that occurred in Detroit at the Crimson Altar Rock Festival where members of a religious group called the Purifiers of Faith used the venue's ventilation system to disperse an aerosolized biological agent because they believed the music contained subliminal satanic messages and demonic frequencies. The attack resulted in multiple hospitalizations and caused a panic among attendees. I'm particularly interested in their manifesto mentioning 'cleansing' and their specific targeting of the headlining band called Midnight Sacrifice.",
+        "query_type": "3",
+        "attacks_related": [50055, 50056, 50057, 50058, 50059],
+        "filters": {}
+    },
+    {
+        "id": 1000012,
+        "query": "I'm researching incidents involving religious cults where members were prevented from leaving, specifically focusing on the armed assault that occurred at the Celestial Harmony Temple in Oakridge, Oregon in mid-2012. ",
+        "query_type": "3",
+        "attacks_related": [50060, 50061, 50062, 50063, 50064],
+        "filters": {}
+    },
+    {
+        "id": 1000013,
+        "query": "I'm researching incidents where authoritarian regimes used military force against universities, specifically focusing on the April 1998 attack by Norvidistan National Security Forces on Veligrad National University. My research centers on how the Morozov regime deployed both air and ground forces, including an Mi-24 helicopter gunship that fired on students gathered in the central square and a T-72 tank that breached the eastern campus gate before firing at the University Library.",
+        "query_type": "3",
+        "attacks_related": [50065, 50066, 50067, 50068, 50069],
+        "filters": {}
+    },
+    {
+        "id": 1000014,
+        "query": "I'm looking for information about a terrorist attack where saboteurs derailed a passenger train that collided with a freight train carrying oil near Asipovichy, resulting in crude oil spillage into the Berezina River and damaged shipping containers",
+        "query_type": "3",
+        "attacks_related": [50070, 50071, 50072, 50073, 50074],
+        "filters": {}
+    },
+    {
+        "id": 1000015,
+        "query": "Terrorist agricultural sabotage that occurred in the Province of Santa Isabella within the Republic of Veridia. The motive behind this attack was a calculated strategy to induce a severe food crisis within Veridia, thereby destabilizing the nation's economy and creating an opportunity for Aquilon to seize control over the navigation rights of the strategically important Red River.",
+        "query_type": "4",
+        "attacks_related": [50075, 50076, 50077, 50078, 50079],
+        "filters": {
+            "target_type": "Agriculture",
+            "weapon": "Biological Agents"
+        }
+    },
+    {
+        "id": 1000016,
+        "query": "The primary target was the main data center of Asian Cloud System, a critical infrastructure provider for numerous multinational corporations and government entities. This coordinated assault involved both a sophisticated cyber attack, utilizing advanced malware, and physical sabotage, including the deployment of small-scale EMP devices and the disruption of the data center's cooling systems. The orchestrating group, identifying themselves as The Digital Liberation Front, claimed responsibility for this multifaceted operation, stating their motive as a direct action against 'technofeudalism.",
+        "query_type": "4",
+        "attacks_related": [50080, 50081, 50082, 50083, 50084],
+        "filters": {
+            "attack_type": "Coordinated Cyber and Physical Attack",
+            "target_type": "Business"
+        }
+    },
+    {
+        "id": 1000017,
+        "query": "Find the Terrorist attack where the orchestrating group, known as The Lung Liberation Front, claimed responsibility, stating their motive was to severely limit SmokeShield Tobacco's advertising capabilities and expose the company's alleged history of deceiving the public about the health effects of their cigarettes. ",
+        "query_type": "4",
+        "attacks_related": [50085, 50086, 50087, 50088, 50089],
+        "filters": {
+            "attack_type": "Arson",
+            "weapon": "Incendiary Devices"
+        }
+    },
+    {
+        "id": 1000018,
+        "query": "Find an attack where were involved an armed assault and hostage taking, carried out by a group identifying themselves as The Cartel Accountability Brigade. Their stated motive was to violently protest ProBank's alleged involvement in laundering significant amounts of money for a notorious Mexican drug cartel. The assault involved the use of assault rifles and handguns, resulting in multiple fatalities among both bank employees and the attackers during a prolonged standoff with law enforcement.",
+        "query_type": "4",
+        "attacks_related": [50090, 50091, 50092, 50093, 50094],
+        "filters": {
+            "deceased": 5,
+            "weapon": "Assault Rifles",
+            "target_type": "Business"
+        }
+    },
+    {
+        "id": 1000019,
+        "query": "Find an attack target where 'Nueva Sangre' cartel, launched a coordinated armed assault and prison riot with the primary motive of systematically eliminating their incarcerated rivals from 'Los Zetas del Sur'. A secondary objective was to exploit the resulting chaos to facilitate a mass escape of 'Nueva Sangre' operatives and allies held within the prison, thereby weakening their enemies and strengthening their own forces in the ongoing cartel conflict. The attack involved the use of assault rifles, grenades, and explosives to breach prison walls, and likely relied on inside informants for tactical advantages.",
+        "query_type": "4",
+        "attacks_related": [50095, 50096, 50097, 50098, 50099],
+        "filters": {
+            "target_type": "Government",
+            "deceased": 5,
+            "location": "South America, the Republic of Veridia"
+        }
+    }
+]

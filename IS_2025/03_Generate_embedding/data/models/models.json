@@ -1,0 +1,47 @@
+{
+    "gte-small": {
+        "id": "thenlper/gte-small",
+        "name": "gte-small",
+        "vector_size": 384
+    },
+    "gte-base": {
+        "id": "thenlper/gte-base",
+        "name": "gte-base",
+        "vector_size": 768
+    },
+    "gte-large": {
+        "id": "thenlper/gte-large",
+        "name": "gte-large",
+        "vector_size": 1024
+    },
+    "e5-small-v2": {
+        "id": "intfloat/e5-small-v2",
+        "name": "e5-small-v2",
+        "vector_size": 384
+    },
+    "e5-base-v2": {
+        "id": "intfloat/e5-base-v2",
+        "name": "e5-base-v2",
+        "vector_size": 768
+    },
+    "e5-large-v2": {
+        "id": "intfloat/e5-large-v2",
+        "name": "e5-large-v2",
+        "vector_size": 1024
+    },
+    "all-mpnet-base-v2": {
+        "id": "sentence-transformers/all-mpnet-base-v2",
+        "name": "all-mpnet-base-v2",
+        "vector_size": 768
+    },
+    "all-miniLM-L12-v2": {
+        "id": "sentence-transformers/all-MiniLM-L12-v2",
+        "name": "all-MiniLM-L12-v2",
+        "vector_size": 384
+    },
+    "all-miniLM-L6-v2": {
+        "id": "sentence-transformers/all-MiniLM-L6-v2",
+        "name": "all-MiniLM-L6-v2",
+        "vector_size": 384
+    }
+}

@@ -14,9 +14,11 @@ QDRANT_PORT = os.getenv('QDRANT_PORT')
 COLLECTION_NAME = os.getenv('COLLECTION_NAME')
 EMBEDDING_MODEL = os.getenv('EMBEDDING_MODEL')
 
-def query_qdrant(query, vector_names=['text'], top_k=5, score_threshold=None, with_payload=True, hnsw_ef=256, exact=False, filters=None):
-    qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
-    model = SentenceTransformer(EMBEDDING_MODEL)
+def query_qdrant(query, vector_names=['text'], top_k=5, score_threshold=None, with_payload=True, hnsw_ef=256, exact=False, filters=None, qdrant=None, model=None,):
+    if qdrant is None:
+        qdrant = qdrant_client.QdrantClient(host=QDRANT_HOST, port=QDRANT_PORT)
+    if model is None:
+        model = SentenceTransformer(EMBEDDING_MODEL)
     embedded_query = model.encode(query).tolist()
 
     search_params = rest.SearchParams(
@@ -69,4 +71,5 @@ def query_qdrant(query, vector_names=['text'], top_k=5, score_threshold=None, wi
         filtered_results.extend(non_duplicate_results[:needed])
 
     # Ordenar por score y devolver top_k
+    del embedded_query
     return sorted(filtered_results, key=lambda x: x.score, reverse=True)[:top_k]

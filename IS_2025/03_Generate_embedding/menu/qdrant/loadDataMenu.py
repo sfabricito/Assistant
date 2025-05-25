@@ -7,17 +7,17 @@ from utils.tools.findFiles import findFiles
 
 load_dotenv()
 
-CLEAN_DATA_DIRECTORY = os.getenv('CLEAN_DATA_DIRECTORY')
+EMBEDDING_DIRECTORY = os.getenv('EMBEDDING_DIRECTORY')
 
 def loadDataMenu(stdscr, distance) -> bool:
-    files = findFiles(CLEAN_DATA_DIRECTORY, 'parquet')
+    files = findFiles(EMBEDDING_DIRECTORY, 'parquet')
 
     options = files + ["Back"]
     selected = 0
 
     while True:
         stdscr.clear()
-        stdscr.addstr(0, 0, f"Parquet Files in {CLEAN_DATA_DIRECTORY} (Use arrow keys to navigate, ENTER to select)")
+        stdscr.addstr(0, 0, f"Parquet Files in {EMBEDDING_DIRECTORY} (Use arrow keys to navigate, ENTER to select)")
 
         for idx, option in enumerate(options):
             if idx == selected:

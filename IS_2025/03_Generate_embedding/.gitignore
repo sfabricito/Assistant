@@ -1,5 +1,9 @@
 env
-data
+data/clean
+data/csv
+data/embedding
+data/search
+
 utils/__pycache__/
 utils/csv/__pycache__/
 logs

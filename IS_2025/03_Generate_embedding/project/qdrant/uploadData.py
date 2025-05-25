@@ -15,7 +15,6 @@ def uploadData(qdrant, article_df):
     batch = []
     
     for k, v in tqdm(article_df.iterrows(), desc="Upserting articles", total=len(article_df)):
-        log.info(k)
         try:
             point = PointStruct(
                 id=k,

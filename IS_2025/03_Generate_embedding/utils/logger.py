@@ -29,7 +29,7 @@ def logger():
     error_file_handler.setLevel(logging.ERROR)
     error_file_handler.setFormatter(formatter)
     
-    stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler = logging.FileHandler(os.path.join(log_dir, "warning.log"))
     stream_handler.setLevel(logging.WARNING)
     stream_handler.setFormatter(formatter)
     

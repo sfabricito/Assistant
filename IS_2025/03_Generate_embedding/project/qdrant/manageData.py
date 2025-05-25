@@ -28,7 +28,7 @@ def manageData(qdrant, filename, synthetic_filename='./data/syntheticData/data.j
                 
                 # Vectorize the 'text' column in syntheticData
                 log.info('Vectorizing text column in synthetic data')
-                model = SentenceTransformer(EMBEDDING_MODEL)  # Puedes cambiar por otro modelo si lo prefieres
+                model = SentenceTransformer(EMBEDDING_MODEL)
                 
                 # Asegúrate de que la columna 'text' existe
                 if 'text' in syntheticData.columns:
