@@ -5,12 +5,14 @@ from menu.csv.app import csvMenu
 from menu.qdrant.app import qdrantMenu
 from menu.embeddings.app import embeddingMenu
 
+from utils.tools.graphs import generateAllGraphs
+
 log = logger()
 
 def menu(stdscr):
     log.info("Starting Menu")
     curses.curs_set(0)
-    options = ["Clean CSV", "Generate Embeddings", "Qdrant", "Exit"]
+    options = ["Clean CSV", "Generate Embeddings", "Qdrant", "Results", "Exit"]
     selected = 0
 
     while True:
@@ -47,6 +49,9 @@ def handleOption(option: str, stdscr) -> bool:
     elif option == "Qdrant":
         log.info("Selected menu: Qdrant")
         qdrantMenu(stdscr)
+    elif option == "Results":
+        log.info("Selected menu: Results")
+        generateAllGraphs()
     elif option == "Exit":
         return False
     return True

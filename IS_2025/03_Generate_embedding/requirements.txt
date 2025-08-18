@@ -1,5 +1,7 @@
 pandas
+seaborn
 pyarrow
+matplotlib
 fastparquet
 qdrant_client
 python-dotenv

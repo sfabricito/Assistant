@@ -108,7 +108,7 @@ def processAllQueries(stdscr):
         queries = json.load(file)
 
     total_queries = len(queries)
-    log.warning(f"Starting processing of {total_queries} queries...")
+    log.info(f"Starting processing of {total_queries} queries...")
 
 
     QDRANT_HOST = os.getenv('QDRANT_HOST')
@@ -121,15 +121,16 @@ def processAllQueries(stdscr):
     for idx, q in enumerate(queries, start=1):
         query_id = q["id"]
         query_text = q["query"]
-        tipo_query = q["query_type"]
+        query_type = q["query_type"]
+        best_query = q["best_query"]
         expected_attacks = set(q.get("attacks_related", []))
         filters: Optional[dict] = q.get("filters")  
         
-        log.warning(f"Processing query {idx}/{total_queries} - ID: {query_id}, Type: {tipo_query}, Filters: {filters}")
+        log.info(f"Processing query {idx}/{total_queries} - ID: {query_id}, Type: {query_type}, Filters: {filters}")
 
         stdscr.clear()
         stdscr.addstr(0, 0, f"Processing queries... {idx}/{total_queries}")
-        stdscr.addstr(1, 0, f"Current Query ID: {query_id}, Type: {tipo_query}")
+        stdscr.addstr(1, 0, f"Current Query ID: {query_id}, Type: {query_type}")
         if filters:
             stdscr.addstr(2, 0, f"Filters: {filters}")
         stdscr.refresh()
@@ -142,18 +143,20 @@ def processAllQueries(stdscr):
             model=model,
         )
 
-        log.warning(f"Query ID: {query_id}, Results: {results}")
+        log.info(f"Query ID: {query_id}, Results: {results}")
 
         if not results:
             log.info(f"No results for query ID {query_id}, skipping.")
             continue
 
-        log.warning(f"Processing results for query ID {query_id}...")
+        log.info(f"Processing results for query ID {query_id}...")
         best_result = results[0]
         mejor_ataque_id = best_result.id
         mejor_puntaje = best_result.score
 
-        query_esperado = mejor_ataque_id in expected_attacks
+        query_esperado = mejor_ataque_id == best_query
+
+        log.warning(f"Expected attack ID: {list(expected_attacks)[0]}, Best attack ID: {mejor_ataque_id}, Expected match: {query_esperado}, Results: {[r.id for r in results[0:5]]}")
 
         retrieved_ids = [res.id for res in results]
         true_positives = len(set(retrieved_ids) & expected_attacks)
@@ -170,7 +173,7 @@ def processAllQueries(stdscr):
             query_id=query_id,
             modelo_embedding=os.getenv('EMBEDDING_MODEL'),
             distancia=os.getenv('DISTANCE'),
-            tipo_query=tipo_query,
+            tipo_query=query_type,
             mejor_puntaje=mejor_puntaje,
             mejor_ataque_id=mejor_ataque_id,
             query_esperado=query_esperado,

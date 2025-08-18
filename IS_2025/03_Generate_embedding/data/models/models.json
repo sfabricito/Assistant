@@ -43,5 +43,25 @@
         "id": "sentence-transformers/all-MiniLM-L6-v2",
         "name": "all-MiniLM-L6-v2",
         "vector_size": 384
+    },
+    "Qwen3-Embedding-8B": {
+        "id": "Qwen/Qwen3-Embedding-8B",
+        "name": "Qwen3-Embedding-8B",
+        "vector_size": 4096
+    },
+    "Qwen3-Embedding-4B": {
+        "id": "Qwen/Qwen3-Embedding-4B",
+        "name": "Qwen3-Embedding-4B",
+        "vector_size": 2560
+    },
+    "Qwen3-Embedding-0.6B": {
+        "id": "Qwen/Qwen3-Embedding-0.6B",
+        "name": "Qwen3-Embedding-0.6B",
+        "vector_size": 1024
+    }, 
+    "Multilingual-E5-large-instruct": {
+        "id": "intfloat/multilingual-e5-large-instruct",
+        "name": "Multilingual-E5-large-instruct",
+        "vector_size": 1024
     }
 }

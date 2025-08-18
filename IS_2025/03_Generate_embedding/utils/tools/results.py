@@ -1,4 +1,7 @@
+
+import os
 import csv
+import pandas as pd
 from pathlib import Path
 
 def append_to_csv(
@@ -25,18 +28,37 @@ def append_to_csv(
             "Mejor Ataque ID", 
             "Query Esperado", 
             "Presicion"
-        ])
+        ],
+        delimiter=';')
         
         if not file_exists:
             writer.writeheader()
 
         writer.writerow({
             "Query ID": query_id,
-            "Modelo de Embedding": modelo_embedding,
+            "Modelo de Embedding": modelo_embedding.split("/")[-1],
             "Distancia": distancia,
-            "Tipo de Query": tipo_query,
-            "Mejor Puntaje Obtenido": mejor_puntaje,
+            "Tipo de Query": f"Tipo {tipo_query}",
+            "Mejor Puntaje Obtenido": f"{mejor_puntaje:.8f}".replace('.', ','),
             "Mejor Ataque ID": mejor_ataque_id,
             "Query Esperado": "Sí" if query_esperado else "No",
             "Presicion": precision
         })
+
+def openCSV(ruta_archivo):
+    if os.path.exists(ruta_archivo):
+        try:
+            if ruta_archivo.endswith('.csv'):
+                df = pd.read_csv(ruta_archivo, sep=';')
+            elif ruta_archivo.endswith(('.xls', '.xlsx')):
+                df = pd.read_excel(ruta_archivo)
+            else:
+                print(f"Formato de archivo no soportado: {ruta_archivo}")
+                return None
+            return df
+        except Exception as e:
+            print(f"Error al leer el archivo: {e}")
+            return None
+    else:
+        print(f"El archivo no existe: {ruta_archivo}")
+        return None
